@@ -1,16 +1,31 @@
 ﻿using Newtonsoft.Json;
+using System.CommandLine;
 using TrelloExportToObsidianKanbanBoard;
 
-var inputJsonPath = Environment.GetCommandLineArgs()[1];
-var outputPath = "../../../Output";
+class Program
+{
+    static async Task<int> Main(string[] args)
+    {
+        var inputOption = new Option<string>(name: "--input", description: "JSON file exported from Trello");
+        var outputOption = new Option<string>(name: "--output", description: "Output directory");
+        var rootCommand = new RootCommand("Sample app for System.CommandLine");
+        rootCommand.AddOption(inputOption);
+        rootCommand.AddOption(outputOption);
 
-var json = File.ReadAllText(inputJsonPath);
+        rootCommand.SetHandler((input, output) =>
+        {
+            var json = File.ReadAllText(input);
 
-var board = JsonConvert.DeserializeObject<TrelloBoard>(json);
+            var board = JsonConvert.DeserializeObject<TrelloBoard>(json);
 
-var simplifiedBoard = BoardParser.Build(board);
+            var simplifiedBoard = BoardParser.Build(board);
 
-string markdownContent = BoardParser.GenerateMarkdown(simplifiedBoard);
+            string markdownContent = BoardParser.GenerateMarkdown(simplifiedBoard);
 
-Directory.CreateDirectory(outputPath);
-File.WriteAllText(outputPath + "/" + simplifiedBoard.Name + ".md", markdownContent);
+            Directory.CreateDirectory(output);
+            File.WriteAllText(output + "/" + simplifiedBoard.Name + ".md", markdownContent);
+        }, inputOption, outputOption);
+
+        return await rootCommand.InvokeAsync(args);
+    }
+}
