@@ -2,10 +2,11 @@
 {
     public class TrelloBoardSimplified
     {
-        public List<TrelloListimplified> Lists { get; set; }
+        public string Name { get; set; }
+        public List<TrelloListSimplified> Lists { get; set; }
     }
 
-    public class TrelloListimplified
+    public class TrelloListSimplified
     {
         public string Name { get; set; }
         public List<string> Tasks { get; set; }

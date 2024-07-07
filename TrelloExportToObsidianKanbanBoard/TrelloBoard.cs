@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace TrelloExportToObsidianKanbanBoard
 {
@@ -144,7 +139,8 @@ namespace TrelloExportToObsidianKanbanBoard
         public object AppCreator { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ActionType Type { get; set; }
 
         [JsonProperty("date")]
         public DateTime Date { get; set; }
@@ -154,6 +150,28 @@ namespace TrelloExportToObsidianKanbanBoard
 
         [JsonProperty("memberCreator")]
         public MemberCreator MemberCreator { get; set; }
+    }
+
+    public enum ActionType
+    {
+        [EnumMember(Value = "createBoard")]
+        CreateBoard,
+        [EnumMember(Value = "updateBoard")]
+        UpdateBoard,
+        [EnumMember(Value = "addToOrganizationBoard")]
+        AddToOrganizationBoard,
+        [EnumMember(Value = "createList")]
+        CreateList,
+        [EnumMember(Value = "updateList")]
+        UpdateList,
+        [EnumMember(Value = "createCard")]
+        CreateCard,
+        [EnumMember(Value = "updateCard")]
+        UpdateCard,
+        [EnumMember(Value = "commentCard")]
+        CommentCard,
+        [EnumMember(Value = "deleteCard")]
+        DeleteCard, 
     }
 
     public class Attachments
@@ -271,6 +289,12 @@ namespace TrelloExportToObsidianKanbanBoard
 
         [JsonProperty("idList")]
         public string IdList { get; set; }
+
+        [JsonProperty("desc")]
+        public string Desc { get; set; }
+
+        [JsonProperty("closed")]
+        public Boolean Closed { get; set; }
     }
 
     public class Card2
@@ -512,6 +536,12 @@ namespace TrelloExportToObsidianKanbanBoard
 
     public class Data
     {
+        [JsonProperty("attachment")]
+        public Attachment Attachment { get; set; }
+
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
         [JsonProperty("old")]
         public Old Old { get; set; }
 
@@ -535,6 +565,24 @@ namespace TrelloExportToObsidianKanbanBoard
 
         [JsonProperty("organization")]
         public Organization Organization { get; set; }
+    }
+
+    public class Attachment
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("previewUrl")]
+        public string PreviewUrl { get; set; }
+
+        [JsonProperty("previewUrl2x")]
+        public string PreviewUrl2X { get; set; }
     }
 
     public class Label
@@ -691,6 +739,9 @@ namespace TrelloExportToObsidianKanbanBoard
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("closed")]
+        public Boolean Closed { get; set; }
     }
 
     public class List2

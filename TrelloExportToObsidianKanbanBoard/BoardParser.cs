@@ -5,7 +5,8 @@
         public static TrelloBoardSimplified Build(TrelloBoard board)
         {
             var result = new TrelloBoardSimplified();
-            result.Lists = new List<TrelloListimplified>();
+            result.Name = board.Name;
+            result.Lists = new List<TrelloListSimplified>();
 
             var cards = board.Actions.Select(x => (x.Data?.Card?.Name, x.Data?.List?.Name ?? x.Data?.ListAfter?.Name, x.Date));
             var filteredCards = cards
@@ -13,13 +14,12 @@
                 .Select(group => group.OrderByDescending(x => x.Date).First()) // Select the latest entry based on date
                 .ToList();
 
-
             foreach (var item in filteredCards)
             {
                 var list = result.Lists.FirstOrDefault(x => x.Name == item.Item2);
                 if (list == null)
                 {
-                    list = new TrelloListimplified();
+                    list = new TrelloListSimplified();
                     list.Name = item.Item2;
                     list.Tasks = new List<string>();
                     result.Lists.Add(list);

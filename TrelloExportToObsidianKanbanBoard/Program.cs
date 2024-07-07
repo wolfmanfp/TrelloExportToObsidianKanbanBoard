@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using TrelloExportToObsidianKanbanBoard;
 
-var inputJsonPath = "../../../board.json";
-var outputFilePath = "../../../kanban.md";
+var inputJsonPath = Environment.GetCommandLineArgs()[1];
+var outputPath = "../../../Output";
 
 var json = File.ReadAllText(inputJsonPath);
 
@@ -12,4 +12,5 @@ var simplifiedBoard = BoardParser.Build(board);
 
 string markdownContent = BoardParser.GenerateMarkdown(simplifiedBoard);
 
-File.WriteAllText(outputFilePath, markdownContent);
+Directory.CreateDirectory(outputPath);
+File.WriteAllText(outputPath + "/" + simplifiedBoard.Name + ".md", markdownContent);
