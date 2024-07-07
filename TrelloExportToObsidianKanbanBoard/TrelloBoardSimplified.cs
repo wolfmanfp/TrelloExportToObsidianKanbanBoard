@@ -3,6 +3,7 @@
     public class TrelloBoardSimplified
     {
         public string Name { get; set; }
+        public string FileName { get; set; }
         public List<TrelloListSimplified> Lists { get; set; }
     }
 

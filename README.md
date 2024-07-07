@@ -6,8 +6,8 @@ It's been brought to my attention that there's a better solution in place called
 A simple script allowing migrating Trello boards > lists > cards to markdown files supported by [Kanban extension in Obsidian](https://github.com/mgmeyers/obsidian-kanban).
 
 By all means, it's not perfect. A few issues I've noticed:
-- it brings back some 'phantom' tasks back to live (most likely the deleted ones)
-- it doesn't bring in empty lists
+- ~~it brings back some 'phantom' tasks back to live (most likely the deleted ones)~~
+- ~~it doesn't bring in empty lists~~
 - it cocks up the order of tasks within cards
 - it only grabs the lists with cards, no card details are ported through
 

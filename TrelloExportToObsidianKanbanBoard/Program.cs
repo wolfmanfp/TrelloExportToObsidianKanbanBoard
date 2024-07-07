@@ -23,7 +23,7 @@ class Program
             string markdownContent = BoardParser.GenerateMarkdown(simplifiedBoard);
 
             Directory.CreateDirectory(output);
-            File.WriteAllText(output + "/" + simplifiedBoard.Name + ".md", markdownContent);
+            File.WriteAllText(output + "/" + simplifiedBoard.FileName + ".md", markdownContent);
         }, inputOption, outputOption);
 
         return await rootCommand.InvokeAsync(args);

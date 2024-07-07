@@ -158,8 +158,12 @@ namespace TrelloExportToObsidianKanbanBoard
         CreateBoard,
         [EnumMember(Value = "updateBoard")]
         UpdateBoard,
+        [EnumMember(Value = "copyBoard")]
+        CopyBoard,
         [EnumMember(Value = "addToOrganizationBoard")]
         AddToOrganizationBoard,
+        [EnumMember(Value = "enablePlugin")]
+        EnablePlugin,
         [EnumMember(Value = "createList")]
         CreateList,
         [EnumMember(Value = "updateList")]
@@ -170,8 +174,12 @@ namespace TrelloExportToObsidianKanbanBoard
         UpdateCard,
         [EnumMember(Value = "commentCard")]
         CommentCard,
+        [EnumMember(Value = "addChecklistToCard")]
+        AddChecklistToCard,
+        [EnumMember(Value = "addAttachmentToCard")]
+        AddAttachmentToCard,
         [EnumMember(Value = "deleteCard")]
-        DeleteCard, 
+        DeleteCard,
     }
 
     public class Attachments
@@ -294,7 +302,7 @@ namespace TrelloExportToObsidianKanbanBoard
         public string Desc { get; set; }
 
         [JsonProperty("closed")]
-        public Boolean Closed { get; set; }
+        public bool Closed { get; set; }
     }
 
     public class Card2
@@ -741,7 +749,7 @@ namespace TrelloExportToObsidianKanbanBoard
         public string Name { get; set; }
 
         [JsonProperty("closed")]
-        public Boolean Closed { get; set; }
+        public bool Closed { get; set; }
     }
 
     public class List2
